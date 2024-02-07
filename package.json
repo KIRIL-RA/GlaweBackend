@@ -1,0 +1,38 @@
+{
+  "name": "glawebackend",
+  "version": "1.0.0",
+  "description": "backend for Glawe project",
+  "main": "index.js",
+  "scripts": {
+    "prod": "node index.js",
+    "dev": "nodemon index.js",
+    "filldb": "node ./Utils/fillDatabase.utils.js",
+    "cleardb": "node ./Utils/cleardb.utils.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KIRIL-RA/GlaweBackend.git"
+  },
+  "author": "Pachv",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KIRIL-RA/GlaweBackend/issues"
+  },
+  "homepage": "https://github.com/KIRIL-RA/GlaweBackend#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.10",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
+    "pino": "^8.18.0",
+    "pino-pretty": "^10.3.1",
+    "sequelize": "^6.36.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
