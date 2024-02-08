@@ -25,18 +25,7 @@ const UserAdmin = sequelize.define("user_admin", {
 Production.hasMany(UserAdmin,{onDelete: 'CASCADE'})
 UserAdmin.belongsTo(Production)
 
-const TargetValues = sequelize.define("target_values", {
-    id : {type : DataTypes.INTEGER, primaryKey : true , autoIncrement:true},
-    metric_type : {type : DataTypes.STRING},
-    target_value : {type : DataTypes.STRING},
-},{
-    underscored: true,
-    timestamps: false,
-    freezeTableName: true,
-})
 
-Production.hasMany(TargetValues,{onDelete: 'CASCADE'})
-TargetValues.belongsTo(Production)
 
 const ProductionTotal = sequelize.define("production_total", {
     id : {type : DataTypes.INTEGER, primaryKey : true , autoIncrement:true},
@@ -234,6 +223,8 @@ const Sensors = sequelize.define("sensors", {
     freezeTableName: true,
 })
 
+
+
 Machines.hasMany(Sensors,{
     onDelete: 'CASCADE'
 })
@@ -244,6 +235,24 @@ SensorsByTypes.hasMany(Sensors,{
     foreignKey: 'sensor_type_id',
 })
 Sensors.belongsTo(SensorsByTypes)
+
+
+const TargetValues = sequelize.define("target_values", {
+    id : {type : DataTypes.INTEGER, primaryKey : true , autoIncrement:true},
+    metric_type : {type : DataTypes.STRING},
+    target_value : {type : DataTypes.STRING},
+    sensor_id : {type : DataTypes.INTEGER,references: {
+        model: Sensors,
+        key: 'id'
+      }}
+},{
+    underscored: true,
+    timestamps: false,
+    freezeTableName: true,
+})
+
+Production.hasMany(TargetValues,{onDelete: 'CASCADE'})
+TargetValues.belongsTo(Production)
 
 const MachineWorkplace = sequelize.define("machine_workplace", {
     id : {type : DataTypes.INTEGER, primaryKey : true , autoIncrement:true},

@@ -9,7 +9,7 @@ const router = new Router()
 const loginRouter = require("./login.router")
 // const productionAndShopMetricsRouter = require("./productionAndShopMetricsRouter")
 // const reportGeneratorRouter = require("./reportGeneratorRouter")
-// const settingsRouter = require("./settingsRouter")
+const settingsRouter = require("./settings.router")
 // const workerAnalyticCalculation = require("./workerAnalyticCalculation")
 
 // router.use(alertRouter)
@@ -19,7 +19,7 @@ const loginRouter = require("./login.router")
 router.use(loginRouter)
 // router.use(productionAndShopMetricsRouter)
 // router.use(reportGeneratorRouter)
-// router.use(settingsRouter)
+router.use(settingsRouter)
 // router.use(workerAnalyticCalculation)
 
 module.exports = router
