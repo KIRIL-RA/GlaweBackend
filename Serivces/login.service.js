@@ -7,9 +7,11 @@ const ApiError = require("../Utils/apiErrors.utils")
 const log = require("../Utils/logger.utils")
 
 const UserAdminDTO = require("../DTO/UserAdmin.dto")
+const WorkerDTO = require("../DTO/Worker.dto")
+
 
 const Tokens = require("../Utils/jwt.utils")
-const WorkerDTO = require("../DTO/Worker.dto")
+
 
 class LoginService {
     
@@ -28,8 +30,6 @@ class LoginService {
             throw ApiError.BadRequest("Пользователь не был найден")
         }
 
-        log.info(user[0].dataValues)
-
         // chesk if current password and passwlrd in db are equal
         const isPassEquals = await bcrypt.compare(password,user[0].dataValues.user_password)
 
@@ -41,12 +41,13 @@ class LoginService {
 
         const userDTO = new UserAdminDTO(user[0].dataValues)
 
-        const token= Tokens.generateToken({...userDTO})
+        const {accessToken,refreshToken} = await Tokens.generateAdminTokens({...userDTO})
     
     
 
         return {
-            token: token,  
+            accessToken : accessToken,
+            refreshToken : refreshToken,  
             user : userDTO 
         }
 
@@ -80,15 +81,33 @@ class LoginService {
 
         const userDTO = new WorkerDTO(user[0].dataValues)
 
-        const token= Tokens.generateToken({...userDTO})
+        const {accessToken,refreshToken} = await Tokens.generateWorkerTokens({...userDTO})
     
     
 
         return {
-            token: token,  
+            accessToken : accessToken,
+            refreshToken : refreshToken,  
             user : userDTO 
         }
 
+    }
+
+    async exitAdmin(refeshToken) {
+        await Tokens.exitAdmin(refeshToken)
+    }
+
+    async exitWorker(refeshToken) {
+        await Tokens.exitWorker(refeshToken)
+    }
+
+    async refreshAdmin(refeshToken) {
+        
+        return await Tokens.refreshAdmin(refeshToken)
+    }
+
+    async refreshWorker(refeshToken) {
+        return await Tokens.refreshWorker(refeshToken)
     }
 
     

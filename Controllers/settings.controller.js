@@ -6,14 +6,13 @@ class SettingsController {
         try {
 
 
-            const {sensor_id,target_value} =  req.body 
+            const {sensor_id,target_value,sensors_type_id} =  req.body 
 
-            const data = await settingsService.setTargetValue(sensor_id,target_value);
+            const data = await settingsService.setTargetValue(sensor_id,target_value,sensors_type_id);
 
             return res.status(200).json(data)
         } catch (error) {
-            log.error(error)
-            next()
+            next(error)
         }
     }
 }

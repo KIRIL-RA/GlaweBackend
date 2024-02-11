@@ -5,15 +5,15 @@ module.exports = function(req,res,next) {
     try {
 
 
-        const {accessToken} = req.body
+        const {deviceToken} = req.body
 
-        const worker = tokenUtil.checkWorkerAccessToken(accessToken)
+        const device = tokenUtil.checkDeviceToken(deviceToken)
 
-        if (!worker) {
+        if (!device) {
             throw apiError.UnautherizedError()
         }
 
-        req.worker = worker
+        req.device = device
 
         next()
         

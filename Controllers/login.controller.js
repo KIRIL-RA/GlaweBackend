@@ -13,8 +13,7 @@ class LoginController {
         
             return res.status(200).json(userData)
         } catch (error) {
-            log.error(error)
-            next()
+            next(error)
         }
     }
 
@@ -22,36 +21,73 @@ class LoginController {
         try {
             const {login,password} = req.body
 
-            log.info(`${login} ${password}`)
-
             const userData = await loginService.loginWorker(login,password)
 
         
             return res.status(200).json(userData)
             
         } catch (error) {
-            log.error(error)
-            next()
+            next(error)
         }
     }
 
     async exitAdmin(req,res,next) {
         try {
+
+            const {refreshToken} = req.body
+
+            await loginService.exitAdmin(refreshToken)
+
             return res.status(200).json({
                 status : "succesfull"
             })
         } catch (error) {
-            console.log(error);
+            next(error)
         }
     }
 
     async exitWorker(req,res,next) {
         try {
+
+            const {refreshToken} = req.body
+
+            await loginService.exitWorker(refreshToken)
+
             return res.status(200).json({
                 status : "succesfull"
             })
         } catch (error) {
-            console.log(error);
+            next(error)
+        }
+    }
+
+    async refreshAdmin(req,res,next) {
+        try {
+
+            const {refreshToken} = req.body
+
+            const data = await loginService.refreshAdmin(refreshToken)
+
+            return res.status(200).json(
+                data
+            )
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async refreshWorker(req,res,next) {
+        try {
+
+            const {refreshToken} = req.body
+
+            const data = await loginService.refreshWorker(refreshToken)
+
+            return res.status(200).json(
+                data
+            )
+        } catch (error) {
+            next(error)
         }
     }
 }

@@ -2,7 +2,7 @@ const {Sensors,TargetValues} = require("../Database/models/models")
 const log = require("../Utils/logger.utils")
 
 class SettingsService {
-    async setTargetValue(sensor_id,target_value) {
+    async setTargetValue(sensor_id,target_value,sensors_type_id) {
         
         const sensorExist = await Sensors.findAll({
             where: {
@@ -17,7 +17,7 @@ class SettingsService {
           const newTargetValue = await TargetValues.create({
             "metric_type"  : "none",
             "target_value" : target_value,
-            "sensor_id" : 1
+            "sensors_type_id" : sensors_type_id
 
           })
 
