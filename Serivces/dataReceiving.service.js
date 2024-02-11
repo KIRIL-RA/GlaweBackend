@@ -26,10 +26,10 @@ class DataReceivingService {
             case "machine" : {
 
                 // path to csv folder for current machine ...
-                const csvPath = `${process.env.file_path}/machinesCSV/${id}/${deviceToken}`
+                const csvPath = `${process.env.file_path}/machinesCSV/${id}`
 
                 // name of the in which data for current machine is placed
-                const fileName = `${csvPath}/${deviceToken}.csv`
+                const fileName = `${csvPath}/${new Date().getDay()}.csv`
 
                 // if folder with such name and time doesn't exist for current device the folder is createds
                 if (!fs.existsSync()) {
